@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">01_StoryApp</string>
+    <string name="alert_invalid_email">Email Salah</string>
+    <string name="nameNone">Don\'t let the name fill blank!</string>
+    <string name="passMustbe">The Password must be 8 character minimum</string>
+    <string name="title_signup_page">Please complete filling your data</string>
+    <string name="name">Name</string>
+    <string name="email">Surel</string>
+    <string name="password">Kata Sandi</string>
+    <string name="signup">Sign up</string>
+    <string name="contentalertdialog">You\'re good to go!</string>
+    <string name="title_login_page">Are you ready to upgrade your skill?</string>
+    <string name="message_login_page">Please insert your data!</string>
+    <string name="login">Login</string>
+    <string name="home">Halaman utama</string>
+    <string name="add">Tambah</string>
+    <string name="logout">Logout</string>
+    <string name="date">Date</string>
+    <string name="profilename">Nama Profil</string>
+    <string name="description">This is the description of the story</string>
+    <string name="message_welcome_page">Check your injury</string>
+    <string name="title_welcome_page">Welcome athletes!</string>
+    <string name="kamera">Camera</string>
+    <string name="galeri">Gallery</string>
+    <string name="inputdescription">Input the Description of the Story</string>
+    <string name="upload">Send story</string>
+</resources>
