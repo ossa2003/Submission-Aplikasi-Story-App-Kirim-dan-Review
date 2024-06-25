@@ -109,20 +109,15 @@ class MasukActivity : AppCompatActivity() {
         }.start()
 
         // Membuat animasi alpha pada beberapa view
-
         val title = ObjectAnimator.ofFloat(binding.titleTextView, View.ALPHA, 1f).setDuration(100)
-        val message =
-            ObjectAnimator.ofFloat(binding.messageTextView, View.ALPHA, 1f).setDuration(100)
-        val emailTextView =
-            ObjectAnimator.ofFloat(binding.emailTextView, View.ALPHA, 1f).setDuration(100)
-        val emailEditTextLayout =
-            ObjectAnimator.ofFloat(binding.emailEditTextLayout, View.ALPHA, 1f).setDuration(100)
-        val passwordTextView =
-            ObjectAnimator.ofFloat(binding.passwordTextView, View.ALPHA, 1f).setDuration(100)
-        val passwordEditTextLayout =
-            ObjectAnimator.ofFloat(binding.passwordEditTextLayout, View.ALPHA, 1f).setDuration(100)
+        val message = ObjectAnimator.ofFloat(binding.messageTextView, View.ALPHA, 1f).setDuration(100)
+        val emailTextView = ObjectAnimator.ofFloat(binding.emailTextView, View.ALPHA, 1f).setDuration(100)
+        val emailEditTextLayout = ObjectAnimator.ofFloat(binding.emailEditTextLayout, View.ALPHA, 1f).setDuration(100)
+        val passwordTextView = ObjectAnimator.ofFloat(binding.passwordTextView, View.ALPHA, 1f).setDuration(100)
+        val passwordEditTextLayout = ObjectAnimator.ofFloat(binding.passwordEditTextLayout, View.ALPHA, 1f).setDuration(100)
         val login = ObjectAnimator.ofFloat(binding.loginButton, View.ALPHA, 1f).setDuration(100)
 
+        // Menggabungkan dan memainkan animasi secara berurutan
         AnimatorSet().apply {
             playSequentially(
                 title,
@@ -137,20 +132,23 @@ class MasukActivity : AppCompatActivity() {
         }.start()
     }
 
+    // Fungsi untuk mengamati respons login dari viewModel
     private fun observeLoginResponse() {
         viewModel.masukRespon.observe(this){ response ->
             if (response.error == true){
+                // Menampilkan toast jika ada error
                 Toast.makeText(this, response.message, Toast.LENGTH_SHORT).show()
             } else {
+                // Menampilkan dialog jika login berhasil
                 AlertDialog.Builder(this).apply {
                     setTitle("Berhasil Login!")
                     setMessage("Happy Exploring the app!")
                     setPositiveButton("Next") { _, _ ->
                         val intent = Intent(context, MainActivity::class.java)
-                        intent.flags =
-                            Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
                         startActivity(intent)
                         finish()
+                        // Menyembunyikan loading
                         menunjukkanLoading(false)
                     }
                     create()
@@ -160,34 +158,36 @@ class MasukActivity : AppCompatActivity() {
         }
     }
 
+    // Fungsi untuk mengamati perubahan state error dari viewModel
     private fun observeErrorState() {
         viewModel.sedangError.observe(this) { errorMessage ->
             if (!errorMessage.isNullOrEmpty()) {
+                // Menunjukkan pesan error
                 menunjukkanError(errorMessage)
+                // Menyembunyikan loading
                 menunjukkanLoading(false)
             }
         }
     }
 
-
+    // Fungsi untuk menampilkan pesan error
     private fun menunjukkanError(errorMessage: String) {
         Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
     }
 
-
+    // Fungsi untuk menunjukkan atau menyembunyikan loading
     private fun menunjukkanLoading(isLoading: Boolean) {
         if (isLoading){
             binding.progressBar.visibility = View.VISIBLE
-        }else{
+        } else {
             binding.progressBar.visibility = View.INVISIBLE
         }
     }
 
+    // Fungsi untuk mengamati perubahan state loading dari viewModel
     private fun observeLoadingState() {
         viewModel.sedangLoading.observe(this){ isLoading ->
             menunjukkanLoading(isLoading)
         }
     }
-
-
 }
